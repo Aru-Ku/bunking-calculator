@@ -7,11 +7,15 @@
       "android",
       "web"
     ],
+    "packagerOpts": {
+      "config": "metro.config.js",
+      "sourceExts": ["js", "jsx", "svg", "ts", "tsx"]
+    },
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/icon.png",
+    "icon": "./assets/icon1.png",
     "splash": {
-      "image": "./assets/splash.png",
+      "image": "./assets/splash1.png",
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
@@ -23,6 +27,16 @@
     ],
     "ios": {
       "supportsTablet": true
+    },
+    "android": {
+      "package": "com.mastrero.buncking.calculator",
+      "permissions": []
+    },
+    "androidStatusBar": {
+      "hidden": true
+    },
+    "notification": {
+      "color": "#ffffff"
     }
   }
 }
