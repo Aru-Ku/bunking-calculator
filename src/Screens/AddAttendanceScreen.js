@@ -1,53 +1,60 @@
 import React from "react";
-import {
-	View,
-	Text,
-	StyleSheet,
-	TouchableOpacity,
-	TextInput,
-} from "react-native";
+import { View, Text, StyleSheet, TouchableOpacity, TextInput, ActivityIndicator } from "react-native";
 
 class AddScreen extends React.Component {
 	state = {
-		subjectData: this.props.route.params,
+		subjectData: [
+			{
+				name: "subject1",
+				count: 12,
+				totalCount: 60,
+			},
+			{
+				name: "subject2",
+				count: 45,
+				totalCount: 60,
+			},
+			{
+				name: "subject3",
+				count: 45,
+				totalCount: 60,
+			},
+		],
+		isActivityIndicator: false,
 	};
 
-	bunked = (event, name) => {
-		let data = [...this.state.subjectData];
+	bunked = (event, name, data) => {
 		data.map((eachSub) => {
 			if (eachSub.name === name) {
 				eachSub.totalCount += +event.nativeEvent.text;
 			}
 		});
-		this.setState({ subjectData: data });
 		console.log(this.state.subjectData);
 	};
 
-	attended = (event, name) => {
-		let data = [...this.state.subjectData];
+	attended = (event, name, data) => {
 		this.state.subjectData.map((eachSub) => {
 			if (eachSub.name === name) {
 				eachSub.count += +event.nativeEvent.text;
 				eachSub.totalCount += +event.nativeEvent.text;
 			}
 		});
-		this.setState({ subjectData: data });
 		console.log(this.state.subjectData);
 	};
 
 	updateAttendance = () => {
-		this.props.navigation.setParams(this.state.subjectData);
+		this.setState({ isActivityIndicator: true });
+		// this.props.navigation.setParams(this.state.subjectData);
 		// this.props.navigation.goBack();
 	}; // Add data submission method
 
 	showSubjects = () => {
-		return this.state.subjectData.map((data) => {
+		let subjects = this.state.subjectData;
+		return subjects.map((data) => {
 			return (
 				<View key={data.name}>
 					<View style={styles.subjectEntries}>
-						<Text style={{ fontSize: 18, fontWeight: "bold", flexGrow: 5 }}>
-							{data.name}
-						</Text>
+						<Text style={{ fontSize: 18, fontWeight: "bold", flexGrow: 5 }}>{data.name}</Text>
 					</View>
 					<View style={styles.box}>
 						<Text style={styles.addText}>No. of classes:</Text>
@@ -56,14 +63,14 @@ class AddScreen extends React.Component {
 							placeholder='Attended'
 							keyboardType='numeric'
 							returnKeyType='done'
-							onChange={(event) => this.attended(event, data.name)}
+							onChange={(event) => this.attended(event, data.name, subjects)}
 						/>
 						<TextInput
 							style={styles.addTextInput}
 							placeholder='Bunked'
 							keyboardType='numeric'
 							returnKeyType='done'
-							onChange={(event) => this.bunked(event, data.name)}
+							onChange={(event) => this.bunked(event, data.name, subjects)}
 						/>
 					</View>
 					<View style={styles.line} />
@@ -72,14 +79,20 @@ class AddScreen extends React.Component {
 		});
 	};
 	render() {
+		console.log(this.state.subjectData);
 		return (
 			<View style={styles.container}>
 				<View style={styles.line} />
 				{this.showSubjects()}
 				<TouchableOpacity
 					onPress={() => this.updateAttendance()}
-					style={styles.button}>
-					<Text style={{ fontSize: 16, color: "#fff" }}>SUBMIT</Text>
+					style={this.state.isActivityIndicator ? null : styles.button}
+					disabled={this.state.isActivityIndicator}>
+					{this.state.isActivityIndicator ? (
+						<ActivityIndicator color='black' size={25} />
+					) : (
+						<Text style={styles.buttonText}>SUBMIT</Text>
+					)}
 				</TouchableOpacity>
 			</View>
 		);
@@ -103,9 +116,16 @@ const styles = StyleSheet.create({
 	},
 	button: {
 		backgroundColor: "black",
-		padding: 6,
+		padding: 8,
+		flexDirection: "row",
 		borderRadius: 3,
+		width: 80,
 		alignSelf: "flex-end",
+		justifyContent: "center",
+	},
+	buttonText: {
+		fontSize: 18,
+		color: "white",
 	},
 	line: {
 		borderBottomColor: "#cccccc",

@@ -1,11 +1,5 @@
 import React from "react";
-import {
-	View,
-	Image,
-	Platform,
-	StyleSheet,
-	TouchableOpacity,
-} from "react-native";
+import { View, Image, StyleSheet, TouchableOpacity } from "react-native";
 import Icon from "../UI/Icon";
 
 const Header = (props) => {
@@ -13,11 +7,6 @@ const Header = (props) => {
 		<View style={styles.container}>
 			<Image style={styles.logo} source={require("../../assets/Logo.png")} />
 			<View style={{ flexDirection: "row" }}>
-				<TouchableOpacity
-					style={{ paddingHorizontal: 15 }}
-					onPress={() => props.navigation.navigate("Personal Details")}>
-					<Icon name='md-contact' focused />
-				</TouchableOpacity>
 				<TouchableOpacity
 					style={{ paddingHorizontal: 5 }}
 					onPress={() => props.navigation.navigate("Settings")}>

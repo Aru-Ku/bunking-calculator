@@ -11,10 +11,8 @@ import AddAttendanceScreen from "./src/Screens/AddAttendanceScreen";
 import SettingsScreen from "./src/Screens/SettingsScreen";
 import LoginScreen from "./src/Screens/LoginScreen";
 import UpadteScreen from "./src/Screens/UpdateScreen";
-import PersonalDetailsScreen from "./src/Screens/PersonalDetailsScreen";
 
 const Stack = createStackNavigator();
-// const BottomTab = createBottomTabNavigator();
 
 export default class App extends React.Component {
 	state = {
@@ -39,32 +37,15 @@ export default class App extends React.Component {
 	render() {
 		return (
 			<View style={styles.container}>
-				{Platform.OS === "android" && (
-					<StatusBar backgroundColor='white' barStyle='dark-content' />
-				)}
+				{Platform.OS === "android" && <StatusBar backgroundColor='white' barStyle='dark-content' />}
 				<NavigationContainer>
 					<Stack.Navigator initialRouteName='Home'>
-						<Stack.Screen
-							name='Home'
-							component={HomeScreen}
-							options={{ headerShown: false }}
-						/>
+						<Stack.Screen name='Home' component={HomeScreen} options={{ headerShown: false }} />
 						<Stack.Screen name='Settings' component={SettingsScreen} />
-						<Stack.Screen
-							name='Add Attendance'
-							component={AddAttendanceScreen}
-						/>
+						<Stack.Screen name='Add Attendance' component={AddAttendanceScreen} />
 						<Stack.Screen name='LoginScreen' component={LoginScreen} />
-						<Stack.Screen
-							name='faq'
-							component={LoginScreen}
-							options={{ headerShown: false }}
-						/>
+						<Stack.Screen name='faq' component={LoginScreen} options={{ headerShown: false }} />
 						<Stack.Screen name='Update Subjects' component={UpadteScreen} />
-						<Stack.Screen
-							name='Personal Details'
-							component={PersonalDetailsScreen}
-						/>
 					</Stack.Navigator>
 				</NavigationContainer>
 			</View>

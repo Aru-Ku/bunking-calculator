@@ -1,11 +1,12 @@
 import React from "react";
-import { View, Text, StyleSheet } from "react-native";
+import { View, Text, StyleSheet, ScrollView } from "react-native";
 import Header from "../Components/Header";
 import TotalAttendance from "../Components/TotalAttendance";
 import SubjectwiseAttendance from "../Components/SubjectWiseAttendance";
+import ClassesSummary from "../Components/ClassesSummary";
 import Icon from "../UI/Icon";
 
-class HomeScreen extends React.Component {
+export default class HomeScreen extends React.Component {
 	state = {
 		userName: "",
 		subjectData: [],
@@ -13,6 +14,36 @@ class HomeScreen extends React.Component {
 
 	componentDidMount() {
 		let data = [
+			{
+				name: "subject1",
+				count: 12,
+				totalCount: 60,
+			},
+			{
+				name: "subject2",
+				count: 45,
+				totalCount: 60,
+			},
+			{
+				name: "subject3",
+				count: 45,
+				totalCount: 60,
+			},
+			{
+				name: "subject1",
+				count: 12,
+				totalCount: 60,
+			},
+			{
+				name: "subject2",
+				count: 45,
+				totalCount: 60,
+			},
+			{
+				name: "subject3",
+				count: 45,
+				totalCount: 60,
+			},
 			{
 				name: "subject1",
 				count: 12,
@@ -40,14 +71,12 @@ class HomeScreen extends React.Component {
 				<View style={styles.rectangle}>
 					<View style={{ alignItems: "center" }}>
 						<Icon name='md-settings' focused='true' size={20} />
-						<Text
-							style={{ fontSize: 19, textAlign: "center", fontWeight: "bold" }}>
+						<Text style={{ fontSize: 19, textAlign: "center", fontWeight: "bold" }}>
 							Oops!! currently you do not have any subjects.
 						</Text>
 						<Text></Text>
 						<Text style={{ fontSize: 18, textAlign: "center" }}>
-							Please, add your subjects in [{" "}
-							<Icon name='md-settings' focused='true' size={20} /> {"\u27a4"}{" "}
+							Please, add your subjects in [ <Icon name='md-settings' focused='true' size={20} /> {"\u27a4"}{" "}
 							𝐔𝐩𝐝𝐚𝐭𝐞 𝐒𝐮𝐛𝐣𝐞𝐜𝐭𝐬 ] to track your attendance.
 						</Text>
 					</View>
@@ -55,14 +84,12 @@ class HomeScreen extends React.Component {
 			);
 		} else {
 			displayUserAttendance = (
-				<>
+				<View>
 					<TotalAttendance subjects={this.state.subjectData} />
 					<Text style={styles.midtext}>Subject wise attendance</Text>
-					<SubjectwiseAttendance
-						{...this.props}
-						subjects={this.state.subjectData}
-					/>
-				</>
+					<SubjectwiseAttendance {...this.props} subjects={this.state.subjectData} />
+					<ClassesSummary subjects={this.state.subjectData} />
+				</View>
 			);
 		}
 		return (
@@ -90,11 +117,7 @@ const styles = StyleSheet.create({
 		width: "93%",
 		padding: 15,
 		alignSelf: "center",
-		...Platform.select({
-			android: {
-				elevation: 3,
-			},
-		}),
+		elevation: 5,
 		backgroundColor: "#fff",
 		borderRadius: 10,
 	},
@@ -111,5 +134,3 @@ const styles = StyleSheet.create({
 		alignSelf: "flex-end",
 	},
 });
-
-export default HomeScreen;
