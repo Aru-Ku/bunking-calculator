@@ -30,32 +30,32 @@ export default class HomeScreen extends React.Component {
 				totalCount: 60,
 			},
 			{
-				name: "subject1",
+				name: "subject4",
 				count: 12,
 				totalCount: 60,
 			},
 			{
-				name: "subject2",
+				name: "subject5",
 				count: 45,
 				totalCount: 60,
 			},
 			{
-				name: "subject3",
+				name: "subject6",
 				count: 45,
 				totalCount: 60,
 			},
 			{
-				name: "subject1",
+				name: "subject7",
 				count: 12,
 				totalCount: 60,
 			},
 			{
-				name: "subject2",
+				name: "subject9",
 				count: 45,
 				totalCount: 60,
 			},
 			{
-				name: "subject3",
+				name: "subject10",
 				count: 45,
 				totalCount: 60,
 			},

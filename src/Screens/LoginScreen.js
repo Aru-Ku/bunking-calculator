@@ -1,33 +1,56 @@
 import React from "react";
-import { View, Image, StyleSheet, TouchableOpacity, Text } from "react-native";
-export default function LoginScreen(props) {
-	props.navigation.setOptions({ headerShown: false });
+import { View, Image, StyleSheet, TouchableOpacity, Text, TextInput } from "react-native";
+
+const LoginScreen = (props) => {
+	const [username, setUsername] = React.useState("");
+	const [password, setPassword] = React.useState("");
 	return (
 		<View style={styles.container}>
 			<Image style={styles.logo} source={require("../../assets/Logo.png")} />
-			<TouchableOpacity style={styles.login}>
+			<TextInput
+				style={styles.inputField}
+				placeholder='Student ID'
+				value={username}
+				onChangeText={(t) => setUsername(t)}
+			/>
+			<TextInput
+				style={styles.inputField}
+				secureTextEntry
+				value={password}
+				onChangeText={(t) => setPassword(t)}
+				placeholder='Password'
+			/>
+			<TouchableOpacity style={styles.loginButton}>
 				<Text style={{ fontSize: 18, color: "#fff" }}>LOGIN</Text>
 			</TouchableOpacity>
 		</View>
 	);
-}
+};
 
+export default LoginScreen;
 const styles = StyleSheet.create({
 	container: {
 		flex: 1,
-		justifyContent: "center",
 		alignItems: "center",
+		backgroundColor: "white",
 	},
 	logo: {
-		resizeMode: "stretch",
+		resizeMode: "contain",
 		width: 200,
-		height: 90,
-		marginVertical: 100,
+		marginTop: 100,
 	},
-	login: {
+	inputField: {
+		width: "70%",
+		borderWidth: 1.5,
+		marginVertical: 10,
+		borderRadius: 10,
+		padding: 10,
+		fontSize: 16,
+	},
+	loginButton: {
 		backgroundColor: "black",
+		marginVertical: 10,
 		padding: 10,
 		borderRadius: 6,
-		elevation: 8,
 	},
 });

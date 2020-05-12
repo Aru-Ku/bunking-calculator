@@ -134,6 +134,10 @@ export default class UpdateScreen extends React.Component {
 	render() {
 		return (
 			<View style={styles.container}>
+				<Text style={styles.warningText}>
+					Remember: Do not remove the subject name and save, doing so completely removes the subject. Deleting
+					the already existing subject will remove the relevant attendance data.
+				</Text>
 				<Text style={styles.heading}>
 					{this.state.noData
 						? "You do not have any subjects, please add them"
@@ -149,6 +153,10 @@ export default class UpdateScreen extends React.Component {
 					{this.state.editing ? this.addButton() : null}
 					{this.submitButton()}
 				</View>
+				{/* <Text style={styles.warningText}>
+					Remember: Do not remove the subject name and save, doing so completely removes the subject. Deleting
+					the already existing subject will remove the relevant attendance data.
+				</Text> */}
 			</View>
 		);
 	}
@@ -158,9 +166,13 @@ const styles = StyleSheet.create({
 	container: {
 		flex: 1,
 		backgroundColor: "white",
-		padding: 30,
+		paddingHorizontal: 30,
 	},
-	heading: { fontSize: 18, fontWeight: "bold", paddingBottom: 15 },
+	heading: {
+		fontSize: 18,
+		fontWeight: "bold",
+		paddingBottom: 15,
+	},
 	buttonWrapper: {
 		flexDirection: "row",
 		justifyContent: "flex-end",
@@ -175,6 +187,13 @@ const styles = StyleSheet.create({
 		justifyContent: "center",
 		borderRadius: 6,
 		elevation: 6,
+	},
+	warningText: {
+		color: "red",
+		fontSize: 15,
+		textAlign: "justify",
+		fontStyle: "italic",
+		paddingVertical: 15,
 	},
 	buttonText: {
 		color: "white",

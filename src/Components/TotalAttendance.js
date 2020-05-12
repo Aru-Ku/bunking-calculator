@@ -13,14 +13,21 @@ function TotalAttendance(props) {
 		return (percent / count).toFixed(1);
 	};
 	let percent = percentage();
+	let textToDisplay = "";
+	if (+percent >= 75 && +percent < 90) {
+		textToDisplay = "Keep up the pace by going to class. However you can bunk some classes per day";
+	} else if ((+percent < 75) & (+percent >= 65)) {
+		textToDisplay = "You are at the edge of safe zone, Please go to class to increase the attendance.";
+	} else if (+percent >= 90) {
+		textToDisplay = "You are too overloaded with attendance. Over attendance is painful.";
+	} else {
+		textToDisplay = "OH OH !! You are too low on attendance, please do not bunk the classes.";
+	}
 	return (
 		<View style={{ ...styles.rectangle, flexDirection: "row" }}>
 			<View style={{ flex: 1 }}>
 				<Text style={styles.lead}>Your Total Attendance:</Text>
-				<Text>
-					You are at the edge of safe zone, Please go to class to increase and
-					increase the attendance
-				</Text>
+				<Text style={{ textAlign: "justify" }}>{textToDisplay}</Text>
 			</View>
 			<View style={styles.right}>
 				<ProgressCircle
@@ -59,7 +66,7 @@ const styles = StyleSheet.create({
 	},
 	right: {
 		flex: 1,
-		flexGrow: 0.6,
+		flexGrow: 0.8,
 		justifyContent: "center",
 		alignItems: "center",
 	},

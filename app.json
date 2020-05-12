@@ -3,10 +3,6 @@
 		"name": "bunking-calculator",
 		"slug": "bunking-calculator",
 		"platforms": ["ios", "android", "web"],
-		"packagerOpts": {
-			"config": "metro.config.js",
-			"sourceExts": ["js", "jsx", "svg", "ts", "tsx"]
-		},
 		"version": "1.0.0",
 		"orientation": "portrait",
 		"icon": "./assets/icon1.png",
@@ -25,9 +21,6 @@
 		"android": {
 			"package": "com.mastrero.bunking.calculator",
 			"permissions": []
-		},
-		"androidStatusBar": {
-			"hidden": true
 		},
 		"notification": {
 			"color": "#ffffff"
