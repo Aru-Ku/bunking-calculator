@@ -1,27 +1,30 @@
 import React from "react";
 import { View, Text, StyleSheet } from "react-native";
 import ProgressCircle from "react-native-progress-circle";
+import { connect } from "react-redux";
 
 function TotalAttendance(props) {
 	let percentage = () => {
 		let count = 0;
-		let percent = 0;
-		props.subjects.map((each) => {
-			count++;
-			percent += (each.count / each.totalCount) * 100;
+		let total = 0;
+		Object.keys(props.attendance).map((key) => {
+			count += props.attendance[key]["attended"];
+			total += props.attendance[key]["total"];
 		});
-		return (percent / count).toFixed(1);
+		return ((count / total) * 100).toFixed(1);
 	};
 	let percent = percentage();
 	let textToDisplay = "";
 	if (+percent >= 75 && +percent < 90) {
-		textToDisplay = "Keep up the pace by going to class. However you can bunk some classes per day";
-	} else if ((+percent < 75) & (+percent >= 65)) {
-		textToDisplay = "You are at the edge of safe zone, Please go to class to increase the attendance.";
+		textToDisplay = "Keep up the pace 🎉🎉. However you can bunk a few classes today. 😉";
+	} else if ((+percent < 75) & (+percent >= 70)) {
+		textToDisplay = "You are at the edge of safe zone 🤨, Please go to class to increase the attendance.";
+	} else if ((+percent < 70) & (+percent >= 60)) {
+		textToDisplay = "Attend the classes 🤨, to be in safe zone";
 	} else if (+percent >= 90) {
-		textToDisplay = "You are too overloaded with attendance. Over attendance is painful.";
+		textToDisplay = "You are too overloaded with attendance 😲. Over attendance is painful.";
 	} else {
-		textToDisplay = "OH OH !! You are too low on attendance, please do not bunk the classes.";
+		textToDisplay = "OH OH 😓😓 !! You are too low on attendance, please do not bunk the classes.";
 	}
 	return (
 		<View style={{ ...styles.rectangle, flexDirection: "row" }}>
@@ -44,18 +47,20 @@ function TotalAttendance(props) {
 	);
 }
 
-export default TotalAttendance;
+const mapState = (state) => {
+	return {
+		attendance: state.ins.attendanceData,
+	};
+};
+
+export default connect(mapState, null)(TotalAttendance);
 
 const styles = StyleSheet.create({
 	rectangle: {
 		width: "93%",
 		padding: 15,
 		alignSelf: "center",
-		...Platform.select({
-			android: {
-				elevation: 3,
-			},
-		}),
+		elevation: 3,
 		backgroundColor: "#fff",
 		borderRadius: 10,
 	},

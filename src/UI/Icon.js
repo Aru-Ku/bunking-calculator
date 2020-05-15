@@ -1,13 +1,17 @@
-import { Ionicons } from "@expo/vector-icons";
+import { Ionicons, Feather, MaterialCommunityIcons, AntDesign } from "@expo/vector-icons";
 import React from "react";
 
 export default function Icon(props) {
-	return (
-		<Ionicons
-			name={props.name}
-			size={props.size ? props.size : 27}
-			style={props.style ? props.style : { marginBottom: -3 }}
-			color={props.focused ? "black" : "#8c8c8c"}
-		/>
-	);
+	switch (props.icon) {
+		case "Feather":
+			return <Feather name={props.name} size={props.size ? props.size : 27} style={props.style} />;
+		case "Material":
+			return (
+				<MaterialCommunityIcons name={props.name} size={props.size ? props.size : 27} style={props.style} />
+			);
+		case "AntDesign":
+			return <AntDesign name={props.name} size={props.size ? props.size : 27} style={props.style} />;
+		default:
+			return <Ionicons name={props.name} size={props.size ? props.size : 27} style={props.style} />;
+	}
 }

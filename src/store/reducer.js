@@ -1,18 +1,13 @@
-import { createStore, applyMiddleware } from "redux";
-// import thunkMiddleware from "react-thunk";
+import { createStore, applyMiddleware, combineReducers } from "redux";
+import thunkMiddleware from "redux-thunk";
+import individualReducer from "./individualReducer";
+import institutionalReducer from "./institutionalReducer";
 
-const initialState = {
-	isLoggedin: false,
-};
+const reducer = combineReducers({
+	ind: individualReducer,
+	ins: institutionalReducer,
+});
 
-const reducer = (state = initialState, action) => {
-	switch (action.type) {
-		case "LOGGED_IN":
-			return { ...state };
-	}
-	return state;
-};
-
-const store = createStore(reducer);
+const store = createStore(reducer, applyMiddleware(thunkMiddleware));
 
 export { store };

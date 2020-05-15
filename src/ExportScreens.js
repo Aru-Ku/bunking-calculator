@@ -1,7 +1,8 @@
-import HomeScreen from "./Screens/HomeScreen";
-import LoginScreen from "./Screens/LoginScreen";
-import SettingsScreen from "./Screens/SettingsScreen";
-import AddAttendanceScreen from "./Screens/AddAttendanceScreen";
-import UpdateScreen from "./Screens/UpdateScreen";
+import IndHomeScreen from "./Individual/IndHomeScreen";
+import LoginScreen from "./LoginScreen";
+import SettingsScreen from "./Individual/SettingsScreen";
+import AddAttendanceScreen from "./Individual/AddAttendanceScreen";
+import UpdateScreen from "./Individual/UpdateScreen";
+import InsHome from "./Institutional/InsHome";
 
-export { HomeScreen, LoginScreen, SettingsScreen, AddAttendanceScreen, UpdateScreen };
+export { IndHomeScreen, LoginScreen, SettingsScreen, AddAttendanceScreen, UpdateScreen, InsHome };

@@ -1,11 +1,12 @@
 import React from "react";
 import { View, Text, StyleSheet } from "react-native";
+import { connect } from "react-redux";
 
-export default function ClassesSummary(props) {
+function ClassesSummary(props) {
 	let [totalClasses, totalBunked, totalAttended] = [0, 0, 0];
-	props.subjects.map((subject) => {
-		totalClasses += subject.totalCount;
-		totalAttended += subject.count;
+	Object.keys(props.attendance).map((key) => {
+		totalAttended += props.attendance[key]["attended"];
+		totalClasses += props.attendance[key]["total"];
 	});
 	totalBunked = totalClasses - totalAttended;
 	return (
@@ -28,6 +29,14 @@ export default function ClassesSummary(props) {
 	);
 }
 
+const mapState = (state) => {
+	return {
+		attendance: state.ins.attendanceData,
+	};
+};
+
+export default connect(mapState, null)(ClassesSummary);
+
 const styles = StyleSheet.create({
 	rectangle: {
 		width: "93%",
@@ -36,7 +45,7 @@ const styles = StyleSheet.create({
 		elevation: 3,
 		backgroundColor: "#fff",
 		borderRadius: 10,
-		marginVertical: 30,
+		marginVertical: 10,
 	},
 	line1: {
 		marginBottom: 8,

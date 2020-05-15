@@ -9,7 +9,7 @@ npm-debug.*
 *.orig.*
 web-build/
 web-report/
-./src/store/FirebaseApi.js
-
+FirebaseApi.js
+token.js
 # macOS
 .DS_Store
