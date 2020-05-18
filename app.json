@@ -1,6 +1,6 @@
 {
 	"expo": {
-		"name": "bunking-calculator",
+		"name": "Bunking Calculator",
 		"slug": "bunking-calculator",
 		"platforms": ["ios", "android", "web"],
 		"version": "1.0.0",
@@ -19,7 +19,7 @@
 			"supportsTablet": true
 		},
 		"android": {
-			"package": "com.mastrero.bunking.calculator",
+			"package": "com.novasemita.bc",
 			"permissions": []
 		},
 		"notification": {
