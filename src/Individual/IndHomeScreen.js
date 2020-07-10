@@ -1,5 +1,5 @@
 import React from "react";
-import { View, Text, StyleSheet, ScrollView, TouchableOpacity } from "react-native";
+import { View, Text, StyleSheet, ScrollView, TouchableOpacity, ActivityIndicator } from "react-native";
 import Header from "./Header";
 import TotalAttendance from "./TotalAttendance";
 import SubjectwiseAttendance from "./SubjectWiseAttendance";
@@ -9,10 +9,14 @@ import { connect } from "react-redux";
 import firebase from "firebase";
 
 class IndHomeScreen extends React.Component {
-	state = {};
+	state = {
+		isDataLoading: false,
+	};
 
 	componentDidMount() {
+		this.setState({ isDataLoading: true });
 		this.componetMounted = this.props.navigation.addListener("focus", () => this.fetchData());
+		this.setState({ isDataLoading: false });
 	}
 	componentWillUnmount() {
 		this.componetMounted();
@@ -33,11 +37,11 @@ class IndHomeScreen extends React.Component {
 			displayUserAttendance = (
 				<View style={styles.rectangle}>
 					<View style={{ alignItems: "center" }}>
-						<Text style={{ fontSize: 19, textAlign: "center", fontWeight: "bold" }}>
+						<Text style={{ fontSize: 19, textAlign: "center", fontWeight: "bold", color: "black" }}>
 							Oops!! currently you do not have any subjects.😏
 						</Text>
 						<Text></Text>
-						<Text>Add Subjects to track your attendance</Text>
+						<Text style={{ color: "black" }}>Add Subjects to track your attendance</Text>
 						<Text></Text>
 						<TouchableOpacity
 							style={{ backgroundColor: "black", padding: 10, elevation: 5 }}
@@ -66,6 +70,7 @@ class IndHomeScreen extends React.Component {
 					<Text style={styles.welcomeText}>
 						Hello <Text style={{ fontWeight: "bold" }}>{this.props.name}</Text>,
 					</Text>
+					{this.state.isDataLoading ? <ActivityIndicator /> : null}
 					{displayUserAttendance}
 				</ScrollView>
 			</View>
@@ -99,6 +104,7 @@ const styles = StyleSheet.create({
 	welcomeText: {
 		fontSize: 21,
 		padding: 15,
+		color: "black",
 	},
 	rectangle: {
 		width: "93%",
@@ -114,6 +120,7 @@ const styles = StyleSheet.create({
 		alignSelf: "center",
 		paddingVertical: 20,
 		fontWeight: "bold",
+		color: "black",
 	},
 	button: {
 		backgroundColor: "black",

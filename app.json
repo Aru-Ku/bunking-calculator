@@ -1,6 +1,6 @@
 {
 	"expo": {
-		"name": "bunking-calculator",
+		"name": "Bunking Calculator",
 		"slug": "bunking-calculator",
 		"platforms": ["ios", "android", "web"],
 		"version": "1.0.0",
@@ -16,14 +16,17 @@
 		},
 		"assetBundlePatterns": ["**/*"],
 		"ios": {
-			"supportsTablet": true
+			"supportsTablet": true,
+			"bundleIdentifier": "com.bunkingcalculator"
 		},
 		"android": {
-			"package": "com.mastrero.bunking.calculator",
-			"permissions": []
+			"package": "com.bunkingcalculator",
+			"permissions": [],
+			"googleServicesFile": ".android/app/google-services.json"
 		},
 		"notification": {
 			"color": "#ffffff"
-		}
+		},
+		"entryPoint": "node_modules/expo/AppEntry.js"
 	}
 }

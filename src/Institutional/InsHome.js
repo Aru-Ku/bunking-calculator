@@ -78,7 +78,7 @@ class InsHome extends React.Component {
 					{this.state.logoutLoading ? (
 						<ActivityIndicator color='black' size={27} />
 					) : (
-						<Icon icon='Material' name='logout-variant' size={27} />
+						<Icon icon='Material' name='logout-variant' size={27} style={{ color: "black" }} />
 					)}
 				</TouchableOpacity>
 			),
@@ -91,11 +91,11 @@ class InsHome extends React.Component {
 			displayUserAttendance = (
 				<View style={{ ...styles.rectangle, marginBottom: 10 }}>
 					<View style={{ alignItems: "center" }}>
-						<Text style={{ fontSize: 19, textAlign: "center", fontWeight: "bold" }}>
+						<Text style={{ fontSize: 19, textAlign: "center", fontWeight: "bold", color: "black" }}>
 							Oops!! currently you have not given any attendance by your faculty
 						</Text>
 						<Text></Text>
-						<Text style={{ fontSize: 18 }}>
+						<Text style={{ fontSize: 18, color: "black" }}>
 							For further information, please contact Your Adminstrator "{this.props.adminID}"
 						</Text>
 					</View>
@@ -119,7 +119,7 @@ class InsHome extends React.Component {
 				) : (
 					<>
 						<Text style={styles.welcomeText}>
-							Hello <Text style={{ fontWeight: "bold" }}>{this.props.name}</Text>,
+							Hello <Text style={{ fontWeight: "bold", color: "black" }}>{this.props.name}</Text>,
 						</Text>
 						{displayUserAttendance}
 					</>
@@ -158,6 +158,7 @@ const styles = StyleSheet.create({
 	welcomeText: {
 		fontSize: 21,
 		padding: 15,
+		color: "black",
 	},
 	rectangle: {
 		width: "93%",
@@ -172,6 +173,7 @@ const styles = StyleSheet.create({
 		alignSelf: "center",
 		paddingVertical: 20,
 		fontWeight: "bold",
+		color: "black",
 	},
 	button: {
 		backgroundColor: "black",

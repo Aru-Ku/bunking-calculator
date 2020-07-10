@@ -17,18 +17,7 @@ export default class App extends React.Component {
 		}
 	}
 
-	componentDidMount = async () => {
-		try {
-			SplashScreen.preventAutoHide();
-			await Font.loadAsync({
-				...Ionicons.font,
-			});
-		} catch (e) {
-			console.warn(e);
-		} finally {
-			SplashScreen.hide();
-		}
-	};
+	componentDidMount = async () => {};
 
 	render() {
 		return (

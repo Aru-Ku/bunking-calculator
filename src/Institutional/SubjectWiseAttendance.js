@@ -8,12 +8,13 @@ class SubjectwiseAttendance extends React.Component {
 		return Object.keys(data).map((key) => {
 			return (
 				<View style={styles.subjectEntries} key={key}>
-					<Text style={{ fontSize: 18, fontWeight: "bold", flexGrow: 2.9, width: "15%" }}>{key}</Text>
-					<Text style={{ fontSize: 18, fontWeight: "bold", flexGrow: 0.6 }}>
-						{/* {data.count} / {data.totalCount} */}
+					<Text style={{ fontSize: 18, fontWeight: "bold", flexGrow: 2.9, width: "15%", color: "black" }}>
+						{key}
+					</Text>
+					<Text style={{ fontSize: 18, fontWeight: "bold", flexGrow: 0.6, color: "black" }}>
 						{data[key]["attended"]} / {data[key]["total"]}
 					</Text>
-					<Text style={{ fontSize: 18, fontWeight: "bold", flexGrow: 0.1 }}>
+					<Text style={{ fontSize: 18, fontWeight: "bold", flexGrow: 0.1, color: "black" }}>
 						{((data[key]["attended"] / data[key]["total"]) * 100).toFixed(2)}%
 					</Text>
 				</View>
@@ -24,9 +25,9 @@ class SubjectwiseAttendance extends React.Component {
 		return (
 			<View style={styles.rectangle}>
 				<View style={styles.heading}>
-					<Text style={{ fontSize: 10, flexGrow: 5 }}>SUBJECTS</Text>
-					<Text style={{ fontSize: 10, flexGrow: 0.9 }}>CLASSES</Text>
-					<Text style={{ fontSize: 10, flexGrow: 0.1 }}>PERCENTAGE</Text>
+					<Text style={{ fontSize: 10, flexGrow: 5, color: "black" }}>SUBJECTS</Text>
+					<Text style={{ fontSize: 10, flexGrow: 0.9, color: "black" }}>CLASSES</Text>
+					<Text style={{ fontSize: 10, flexGrow: 0.1, color: "black" }}>PERCENTAGE</Text>
 				</View>
 				<ScrollView nestedScrollEnabled={true} style={{ backgoundColor: "#fafafa" }}>
 					{this.subjects()}

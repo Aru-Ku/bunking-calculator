@@ -33,7 +33,9 @@ class AddScreen extends React.Component {
 			return (
 				<View key={key}>
 					<View style={{ paddingTop: 5 }}>
-						<Text style={{ fontSize: 18, fontWeight: "bold", textAlignVertical: "center" }}>{key}</Text>
+						<Text style={{ fontSize: 18, fontWeight: "bold", textAlignVertical: "center", color: "black" }}>
+							{key}
+						</Text>
 					</View>
 					<View style={styles.box}>
 						<Picker
