@@ -53,7 +53,9 @@ const InsLogin = (props) => {
 
 	return (
 		<View style={styles.LoginView}>
-			<Text>Use this login, if your institution has given you the login details</Text>
+			<Text style={{ color: "black" }}>
+				Use this login, if your institution has given you the login details
+			</Text>
 			<TextInput
 				style={nomail ? { ...styles.inputField, borderColor: "red" } : styles.inputField}
 				placeholder='Institutional Mail ID'

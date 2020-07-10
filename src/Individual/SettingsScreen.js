@@ -2,32 +2,34 @@ import React from "react";
 import { View, Text, StyleSheet, Image, TouchableOpacity } from "react-native";
 import Icon from "../UI/Icon";
 import { connect } from "react-redux";
-import * as Google from "expo-google-app-auth";
-import { androidToken, iosToken } from "../store/token";
+import { GoogleSignin } from "@react-native-community/google-signin";
+import firebase from "firebase";
 
 const SettingsScreen = (props) => {
 	const signoutHandler = async () => {
-		const config = {
-			accessToken: props.accessToken,
-			androidClientId: androidToken,
-			iosClientId: iosToken,
-		};
-		console.log(props.accessToken);
-		await Google.logOutAsync({ ...config });
-		props.signOut();
+		try {
+			await GoogleSignin.revokeAccess();
+			await GoogleSignin.signOut();
+			firebase.auth().signOut();
+			await props.signOut();
+		} catch (error) {
+			console.error(error);
+		}
 	};
 	return (
 		<View style={styles.container}>
 			<View style={styles.profile}>
 				<View style={{}}>
-					<Text style={{ fontWeight: "bold", fontSize: 23, paddingVertical: 15 }}>{props.name}</Text>
-					<Text style={{ fontSize: 18, fontStyle: "italic" }}>{props.email}</Text>
+					<Text style={{ fontWeight: "bold", fontSize: 23, paddingVertical: 15, color: "black" }}>
+						{props.name}
+					</Text>
+					<Text style={{ fontSize: 18, fontStyle: "italic", color: "black" }}>{props.email}</Text>
 				</View>
 				<Image style={styles.image} source={{ uri: props.pic }} />
 			</View>
 
 			<TouchableOpacity onPress={() => props.navigation.navigate("Update Subjects")} style={styles.setting}>
-				<Icon name='ios-book' size={26} focused='true' />
+				<Icon name='ios-book' size={26} style={{ color: "black" }} />
 				<Text style={styles.settingFont}>Update Subjects</Text>
 				<Icon style={styles.arrow} name='md-arrow-round-forward' size={25} focused='true' />
 			</TouchableOpacity>
@@ -40,6 +42,7 @@ const SettingsScreen = (props) => {
 					padding: 8,
 					borderRadius: 8,
 					elevation: 5,
+					color: "black",
 				}}>
 				<Text style={{ color: "white", fontSize: 16 }}>Sign out</Text>
 			</TouchableOpacity>
@@ -48,6 +51,7 @@ const SettingsScreen = (props) => {
 					style={{
 						fontSize: 18,
 						fontWeight: "bold",
+						color: "black",
 					}}>
 					Designed & Developed by:
 				</Text>
@@ -102,10 +106,12 @@ const styles = StyleSheet.create({
 		fontSize: 20,
 		paddingHorizontal: 18,
 		flexGrow: 5,
+		color: "black",
 	},
 	arrow: {
 		alignSelf: "stretch",
 		paddingHorizontal: 5,
+		color: "black",
 	},
 	creditsCard: {
 		position: "absolute",

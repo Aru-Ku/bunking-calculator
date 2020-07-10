@@ -1,50 +1,54 @@
 import React from "react";
-import { View, TouchableOpacity, Text, StyleSheet, ActivityIndicator } from "react-native";
+import { View, StyleSheet, Alert, ActivityIndicator, Text } from "react-native";
 import { connect } from "react-redux";
-import * as Google from "expo-google-app-auth";
+import { GoogleSignin, GoogleSigninButton, statusCodes } from "@react-native-community/google-signin";
 import firebase from "firebase";
-import Icon from "./UI/Icon";
-import { androidToken, iosToken } from "./store/token";
+import { androidToken, iosToken, webToken } from "./store/token";
 
-const IndLogin = (props) => {
-	const [loading, setLoading] = React.useState(false);
-	signIn = async () => {
-		setLoading(true);
+class IndLogin extends React.Component {
+	state = {
+		loading: false,
+	};
+
+	signInHandler = async () => {
+		this.setState({ loading: true });
 		try {
-			const result = await Google.logInAsync({
-				behavior: "system",
-				androidClientId: androidToken,
-				iosClientId: iosToken,
-				scopes: ["profile", "email"],
+			GoogleSignin.configure({
+				shouldFetchBasicProfile: true,
+				webClientId: webToken,
+				offlineAccess: true,
 			});
-
-			if (result.type === "success") {
-				onSignIn(result);
-				return result.accessToken;
+			await GoogleSignin.hasPlayServices();
+			const data = await GoogleSignin.signIn();
+			this.onSignIn(data);
+		} catch (error) {
+			if (error.code === statusCodes.SIGN_IN_CANCELLED) {
+				// user cancelled the login flow
+			} else if (error.code === statusCodes.IN_PROGRESS) {
+				// operation (e.g. sign in) is in progress already
+			} else if (error.code === statusCodes.PLAY_SERVICES_NOT_AVAILABLE) {
+				// play services not available or outdated
 			} else {
-				return { cancelled: true };
+				Alert.alert("Oh Ohh, Something happened", "Please Contact the developer");
 			}
-		} catch (e) {
-			return { error: true };
+			this.setState({ loading: false });
 		}
 	};
+
 	onSignIn = (googleUser) => {
-		var unsubscribe = firebase.auth().onAuthStateChanged((firebaseUser) => {
-			unsubscribe();
-			if (!isUserEqual(googleUser, firebaseUser)) {
+		firebase.auth().onAuthStateChanged((firebaseUser) => {
+			if (!this.isUserEqual(googleUser, firebaseUser)) {
+				this.setState({ loading: false });
 				//If User not existed in database
-				var credential = firebase.auth.GoogleAuthProvider.credential(
-					googleUser.idToken,
-					googleUser.accessToken
-				);
+				var credential = firebase.auth.GoogleAuthProvider.credential(googleUser.idToken);
 				firebase
 					.auth()
 					.signInWithCredential(credential)
-					.then((data) => {
-						const uid = data.user.uid;
+					.then(async (data) => {
+						const uid = firebase.auth().currentUser.uid;
 						const email = data.user.email;
-						const pic = data.additionalUserInfo.profile.picture;
-						const name = data.additionalUserInfo.profile.name;
+						const pic = data.user.photoURL;
+						const name = data.user.displayName;
 
 						firebase
 							.database()
@@ -53,31 +57,23 @@ const IndLogin = (props) => {
 								gmail: email,
 								photoUrl: pic,
 								name: name,
-								subjects: {},
 							})
-							.then(() => props.setIndividualLogin(uid, email, pic, name, googleUser.accessToken));
+							.then(() => this.props.setIndividualLogin(uid, email, pic, name));
 					})
 					.catch((error) => {});
 			} else {
 				// if user alrady exists
-				firebase.auth().onAuthStateChanged((user) => {
-					const uid = user.uid;
-					firebase
-						.database()
-						.ref("/individuals/" + uid)
-						.once("value", (snap) => {
-							props.setIndividualLogin(
-								uid,
-								snap.val()["gmail"],
-								snap.val()["photoUrl"],
-								snap.val()["name"],
-								googleUser.accessToken
-							);
-						});
-				});
+				this.setState({ loading: false });
+				const uid = firebaseUser.uid;
+				const email = firebaseUser.email;
+				const pic = firebaseUser.photoURL;
+				const name = firebaseUser.displayName;
+
+				this.props.setIndividualLogin(uid, email, pic, name);
 			}
 		});
 	};
+
 	isUserEqual = (googleUser, firebaseUser) => {
 		if (firebaseUser) {
 			var providerData = firebaseUser.providerData;
@@ -93,21 +89,24 @@ const IndLogin = (props) => {
 		return false;
 	};
 
-	return (
-		<View style={styles.container}>
-			<TouchableOpacity style={styles.buttonBox} onPress={() => signIn()}>
-				{loading ? (
-					<ActivityIndicator color='white' size={25} />
+	render() {
+		return (
+			<View style={styles.container}>
+				{!this.state.loadingText ? (
+					<GoogleSigninButton
+						style={{ width: 192, height: 50 }}
+						size={GoogleSigninButton.Size.Wide}
+						color={GoogleSigninButton.Color.Dark}
+						onPress={this.signInHandler}
+					/>
 				) : (
-					<>
-						<Icon name='logo-google' style={{ color: "white" }} size={25} />
-						<Text style={styles.buttonText}>SIGN IN</Text>
-					</>
+					<Text>Checking status...</Text>
 				)}
-			</TouchableOpacity>
-		</View>
-	);
-};
+				{this.state.loading ? <ActivityIndicator size={30} color='black' /> : null}
+			</View>
+		);
+	}
+}
 
 const mapDispatch = (dispatch) => {
 	return {

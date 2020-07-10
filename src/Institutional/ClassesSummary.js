@@ -55,11 +55,13 @@ const styles = StyleSheet.create({
 	},
 	headText: {
 		fontSize: 16,
+		color: "black",
 	},
 	headTextCount: {
 		fontSize: 26,
 		fontWeight: "bold",
 		paddingHorizontal: 5,
+		color: "black",
 	},
 	lines: {
 		alignItems: "center",

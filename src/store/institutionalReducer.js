@@ -14,19 +14,19 @@ const institutionalReducer = (state = initialState, action) => {
 		case "INS_LOGGED_IN":
 			return {
 				...state,
-				isInstitutionalLoggedIn: true,
 				stuID: action.id,
 				dname: action.dname,
+				isInstitutionalLoggedIn: true,
 			};
 		case "INS_LOGGED_OUT":
 			return {
 				...state,
-				isInstitutionalLoggedIn: false,
 				adminID: "",
 				stuID: "",
 				dname: "",
 				name: "",
 				attendanceData: {},
+				isInstitutionalLoggedIn: false,
 			};
 		case "SET_ADMIN_ID":
 			return {

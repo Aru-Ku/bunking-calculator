@@ -1,7 +1,6 @@
 const initialState = {
 	isIndividualLoggedIn: false,
 	accID: "",
-	accessToken: "",
 	name: "",
 	email: "",
 	pic: "",
@@ -13,22 +12,20 @@ const individualReducer = (state = initialState, action) => {
 		case "IND_LOGGED_IN":
 			return {
 				...state,
-				isIndividualLoggedIn: true,
 				accID: action.id,
 				pic: action.pic,
 				email: action.email,
 				name: action.name,
-				accessToken: action.token,
+				isIndividualLoggedIn: true,
 			};
 		case "IND_LOGGED_OUT":
 			return {
-				...state,
 				isIndividualLoggedIn: false,
+				...state,
 				accID: "",
 				name: "",
 				email: "",
 				pic: "",
-				accessToken: "",
 			};
 		case "SET_DATA":
 			return {

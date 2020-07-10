@@ -10,13 +10,13 @@ class SubjectwiseAttendance extends React.Component {
 		return Object.keys(data).map((key) => {
 			return (
 				<View style={styles.subjectEntries} key={key}>
-					<Text style={{ fontSize: 18, fontWeight: "bold", flexGrow: 3, width: "15%" }}>
+					<Text style={{ fontSize: 18, fontWeight: "bold", flexGrow: 3, width: "15%", color: "black" }}>
 						{data[key]["name"]}
 					</Text>
-					<Text style={{ fontSize: 18, fontWeight: "bold", flexGrow: 0.6 }}>
+					<Text style={{ fontSize: 18, fontWeight: "bold", flexGrow: 0.6, color: "black" }}>
 						{data[key]["attended"]} / {data[key]["total"]} <Text style={{ fontSize: 11 }}>CLASSES</Text>
 					</Text>
-					<Text style={{ fontSize: 18, fontWeight: "bold", flexGrow: 0.1 }}>
+					<Text style={{ fontSize: 18, fontWeight: "bold", flexGrow: 0.1, color: "black" }}>
 						{!isNaN(((data[key]["attended"] / data[key]["total"]) * 100).toFixed(2))
 							? ((data[key]["attended"] / data[key]["total"]) * 100).toFixed(2)
 							: "00.00"}

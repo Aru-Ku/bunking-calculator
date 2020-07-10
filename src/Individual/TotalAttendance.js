@@ -32,7 +32,7 @@ function TotalAttendance(props) {
 		<View style={{ ...styles.rectangle, flexDirection: "row" }}>
 			<View style={{ flex: 1 }}>
 				<Text style={styles.lead}>Your Total Attendance:</Text>
-				<Text style={{ textAlign: "justify" }}>{textToDisplay}</Text>
+				<Text style={{ textAlign: "justify", color: "black" }}>{textToDisplay}</Text>
 			</View>
 			<View style={styles.right}>
 				<ProgressCircle
@@ -42,7 +42,7 @@ function TotalAttendance(props) {
 					color='#000'
 					shadowColor='#eee'
 					bgColor='#fff'>
-					<Text style={{ fontSize: 20 }}>{+percent}%</Text>
+					<Text style={{ fontSize: 20, color: "black" }}>{+percent}%</Text>
 				</ProgressCircle>
 			</View>
 		</View>
@@ -68,6 +68,7 @@ const styles = StyleSheet.create({
 		paddingVertical: 5,
 		fontSize: 20,
 		fontWeight: "bold",
+		color: "black",
 	},
 	right: {
 		flex: 1,

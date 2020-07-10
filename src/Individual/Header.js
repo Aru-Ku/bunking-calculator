@@ -20,13 +20,12 @@ const Header = (props) => {
 const styles = StyleSheet.create({
 	container: {
 		width: "100%",
-		height: 70,
+		height: 50,
 		backgroundColor: "#fff",
 		flexDirection: "row",
 		justifyContent: "space-between",
 		alignItems: "center",
-		padding: 15,
-		paddingTop: 25,
+		paddingHorizontal: 15,
 		elevation: 5,
 		marginTop: 0,
 	},

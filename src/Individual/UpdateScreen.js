@@ -46,7 +46,7 @@ class UpdateScreen extends React.Component {
 								!this.state.editing
 									? styles.field
 									: data[key]["name"] !== ""
-									? { ...styles.field, backgroundColor: "#f5f5f5" }
+									? { ...styles.field, backgroundColor: "#f5f5f5", color: "black" }
 									: { ...styles.field, backgroundColor: "#f5f5f5", borderColor: "red", borderWidth: 1 }
 							}
 							defaultValue={data[key]["name"]}
@@ -224,6 +224,7 @@ const styles = StyleSheet.create({
 		fontSize: 20,
 		fontWeight: "bold",
 		paddingBottom: 10,
+		color: "black",
 	},
 	buttonWrapper: {
 		flexDirection: "row",
@@ -263,6 +264,7 @@ const styles = StyleSheet.create({
 		marginLeft: 5,
 		fontSize: 18,
 		width: "90%",
+		color: "black",
 	},
 	headText: {
 		fontSize: 18,
